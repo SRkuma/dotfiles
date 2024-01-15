@@ -2,10 +2,29 @@
 brew:
 	which brew || /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
-install: 
+install:
 	$(MAKE) git_setup
 	$(MAKE) ghq_peco
 	$(MAKE) rectangle
+
+aws:
+	brew install --cask aws-vault
+	brew install awscli
+
+utils:
+	brew install jq
+	brew install yq
+	brew install ripgrep
+	$(MAKE) mysql
+	$(MAKE) asdf
+
+mysql:
+	brew install mysql-client
+	@echo 'export PATH="/opt/homebrew/opt/mysql-client/bin:$PATH"' >> ~/.zshrc
+
+asdf:
+	brew install asdf
+	@echo "\n. $$(brew --prefix asdf)/libexec/asdf.sh" >> ~/.zshrc
 
 git_setup:
 	git config --global alias.br branch
